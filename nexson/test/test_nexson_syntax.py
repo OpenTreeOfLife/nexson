@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from nexson.syntax import (can_convert_nexson_forms,
                            convert_nexson_format,
                            DIRECT_HONEY_BADGERFISH,
@@ -6,10 +7,12 @@ from nexson.syntax import (can_convert_nexson_forms,
                            BY_ID_HONEY_BADGERFISH,
                            sort_meta_elements,
                            sort_arbitrarily_ordered_nexson)
-from peyutil.test.support import equal_blob_check, pathmap
+from nexson.test import get_test_path_mapper
 import unittest
 import logging
 import os
+
+pathmap = get_test_path_mapper()
 
 # pylint does not realize that serialize returns a string, so generates lots of
 #   spurious errors
@@ -52,7 +55,7 @@ class TestConvert(unittest.TestCase):
             if obj is None:
                 continue
             h = convert_nexson_format(obj, DIRECT_HONEY_BADGERFISH)
-            equal_blob_check(self, '', h, b_expect)
+            pathmap.equal_blob_check(self, '', h, b_expect)
 
     def testConvertBFtoHBF1_2(self):
         for t in RT_DIRS:
@@ -60,7 +63,7 @@ class TestConvert(unittest.TestCase):
             if obj is None:
                 continue
             b = convert_nexson_format(obj, BY_ID_HONEY_BADGERFISH)
-            equal_blob_check(self, '', b, b_expect)
+            pathmap.equal_blob_check(self, '', b, b_expect)
 
     def testConvertHBF1_0toBF(self):
         for t in RT_DIRS:
@@ -70,7 +73,7 @@ class TestConvert(unittest.TestCase):
             b = convert_nexson_format(obj, BADGER_FISH_NEXSON_VERSION)
             sort_meta_elements(b_expect)
             sort_meta_elements(b)
-            equal_blob_check(self, '', b, b_expect)
+            pathmap.equal_blob_check(self, '', b, b_expect)
 
     def testConvertHBF1_2toBF(self):
         for t in RT_DIRS:
@@ -80,7 +83,7 @@ class TestConvert(unittest.TestCase):
             b = convert_nexson_format(obj, BADGER_FISH_NEXSON_VERSION)
             sort_arbitrarily_ordered_nexson(b_expect)
             sort_arbitrarily_ordered_nexson(b)
-            equal_blob_check(self, '', b, b_expect)
+            pathmap.equal_blob_check(self, '', b, b_expect)
 
     def testConvertHBF1_2toHBF1_0(self):
         for t in RT_DIRS:
@@ -90,7 +93,7 @@ class TestConvert(unittest.TestCase):
             b = convert_nexson_format(obj, DIRECT_HONEY_BADGERFISH)
             sort_arbitrarily_ordered_nexson(b_expect)
             sort_arbitrarily_ordered_nexson(b)
-            equal_blob_check(self, '', b, b_expect)
+            pathmap.equal_blob_check(self, '', b, b_expect)
 
     def testConvertHBF1_0toHBF1_2(self):
         for t in RT_DIRS:
@@ -98,7 +101,7 @@ class TestConvert(unittest.TestCase):
             if obj is None:
                 continue
             b = convert_nexson_format(obj, BY_ID_HONEY_BADGERFISH)
-            equal_blob_check(self, '', b, b_expect)
+            pathmap.equal_blob_check(self, '', b, b_expect)
 
 
 if __name__ == "__main__":

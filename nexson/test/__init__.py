@@ -1,4 +1,5 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 ##############################################################################
 #  Adapted from: DendroPy Phylogenetic Computing Library.
@@ -19,6 +20,7 @@ import unittest
 import re
 import os
 
+from .support.pathmap import get_test_path_mapper
 
 def get_test_file_names():
     """Get list of test file names."""
