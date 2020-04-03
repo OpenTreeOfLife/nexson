@@ -4,7 +4,7 @@
 from nexson.validation.adaptor import create_validation_adaptor
 from nexson.validation.logger import FilteringLogger, ValidationLogger
 from nexson.validation.warning_codes import NexsonWarningCodes
-
+from nexson.syntax import NexsonError
 
 def validate_nexson(obj, warning_codes_to_skip=None, retain_deprecated=True, **kwargs):
     """Takes an `obj` that is a NexSON object.
@@ -46,3 +46,5 @@ def ot_validate(nexson, **kwargs):
     annotation = v_log.prepare_annotation(author_name='api.opentreeoflife.org/validate',
                                           description='Open Tree NexSON validation')
     return annotation, v_log, adaptor_obj
+
+from ._validation_base import NexsonAnnotationAdder, replace_same_agent_annotation

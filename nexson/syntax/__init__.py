@@ -10,8 +10,11 @@ Most notable functions are:
 """
 from nexson.syntax.helper import (ConversionConfig,
                                   NexsonConverter,
+                                  NexsonError,
                                   detect_nexson_version,
                                   get_nexml_el,
+                                  find_val_literal_meta_first,
+                                  _add_uniq_value_to_dict_bf,
                                   _add_value_to_dict_bf,
                                   _get_index_list_of_values,
                                   _index_list_of_values,
@@ -24,7 +27,8 @@ from nexson.syntax.helper import (ConversionConfig,
                                   DIRECT_HONEY_BADGERFISH,
                                   NEXML_NEXSON_VERSION,
                                   BY_ID_HONEY_BADGERFISH,
-                                  SUPPORTED_NEXSON_VERSIONS)
+                                  SUPPORTED_NEXSON_VERSIONS,
+                                  _simplify_all_meta_by_id_del,)
 # noinspection PyUnresolvedReferences
 from peyutil.input_output import read_as_json, write_as_json
 from peyutil.str_util import (flush_utf_8_writer,
