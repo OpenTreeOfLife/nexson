@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """NexsonValidationAdaptor class.
 """
-from ._badgerfish_validation import BadgerFishValidationAdaptor
-from ._by_id_validation import ByIdHBFValidationAdaptor
-from ..syntax import detect_nexson_version
-from ..syntax.helper import (find_val_for_first_hbf_l_meta,
+from nexson.validation._badgerfish_validation import BadgerFishValidationAdaptor
+from nexson.validation._by_id_validation import ByIdHBFValidationAdaptor
+from nexson.syntax import detect_nexson_version
+from nexson.syntax.helper import (find_val_for_first_hbf_l_meta,
                              DIRECT_HONEY_BADGERFISH,
                              _is_badgerfish_version,
                              _is_by_id_hbf,

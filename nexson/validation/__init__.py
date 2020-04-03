@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """Functions for validating NexSON.
 """
-from .adaptor import create_validation_adaptor
-from .logger import FilteringLogger, ValidationLogger
-from .warning_codes import NexsonWarningCodes
+from nexson.validation.adaptor import create_validation_adaptor
+from nexson.validation.logger import FilteringLogger, ValidationLogger
+from nexson.validation.warning_codes import NexsonWarningCodes
 
 
 def validate_nexson(obj, warning_codes_to_skip=None, retain_deprecated=True, **kwargs):

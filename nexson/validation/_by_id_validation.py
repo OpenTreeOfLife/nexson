@@ -13,7 +13,7 @@ from .err_generator import (gen_MissingCrucialContentWarning,
 from peyutil import is_str_type
 from ._validation_base import NexsonValidationAdaptor
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
-from ..helper import BY_ID_HONEY_BADGERFISH
+from nexson.syntax.helper import BY_ID_HONEY_BADGERFISH
 import logging
 
 _LOG = logging.getLogger(__name__)

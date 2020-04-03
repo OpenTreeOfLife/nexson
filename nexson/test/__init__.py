@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+"""
+nexson testing suite.
+"""
 ##############################################################################
 #  Adapted from: DendroPy Phylogenetic Computing Library.
 #
@@ -11,10 +13,6 @@
 #     for phylogenetic computing. Bioinformatics 26: 1569-1571.
 #
 ##############################################################################
-
-"""
-nexson testing suite.
-"""
 
 import unittest
 import re

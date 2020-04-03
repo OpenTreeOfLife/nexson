@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import json
-from .helper import SeverityCodes, _NEXEL, error_return
-from .schema import add_schema_attributes
-from .err_generator import (factory2code,
+from nexson.validation.helper import SeverityCodes, _NEXEL, error_return
+from nexson.validation.schema import add_schema_attributes
+from nexson.validation.err_generator import (factory2code,
                             gen_MissingExpectedListWarning,
                             gen_MaxSizeExceededWarning,
                             gen_MissingMandatoryKeyWarning,
@@ -14,15 +14,15 @@ from .err_generator import (factory2code,
                             gen_UnrecognizedKeyWarning,
                             gen_WrongValueTypeWarning)
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences,PyUnresolvedReferences
-from ..helper import add_literal_meta, \
+from nexson.syntax.helper import add_literal_meta, \
     get_nexml_el, \
     find_val_literal_meta_first, \
     find_nested_meta_first, \
     extract_meta, \
     _add_value_to_dict_bf
-from ..syntax.inspect import count_num_trees
+from nexson.syntax.inspect import count_num_trees
 # noinspection PyUnresolvedReferences,PyUnresolvedReferences
-from .syntax import detect_nexson_version
+from nexson.syntax import detect_nexson_version
 import logging
 
 _LOG = logging.getLogger(__name__)
