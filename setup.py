@@ -63,14 +63,17 @@ else:
 
 setup(
     name='nexson',
-    version='0.0.1',  # sync with __version__ in nexson/__init__.py
+    version='0.0.2',  # sync with __version__ in nexson/__init__.py
     description='Library for dealing with phylogenetic trees in the NexSON format',
     long_description=(open('README.rst').read()),
     url='https://github.com/OpenTreeOfLife/nexson',
     license='BSD',
     author='Emily Jane B. McTavish and Mark T. Holder',
     py_modules=['nexson'],
-    install_requires=['setuptools', ],
+    install_requires=['setuptools', # sync with requirements.txt
+                      'wheel',
+                      'peyutil>=0.0.1' 
+                      ],
     packages=PACKAGES,
     entry_points=ENTRY_POINTS,
     classifiers=[
