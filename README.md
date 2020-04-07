@@ -1,5 +1,5 @@
 # nexson
-[![Build Status](https://secure.travis-ci.org/OpenTreeOfLife/peyotl.png)](http://travis-ci.org/OpenTreeOfLife/peyotl)
+[![Build Status](https://secure.travis-ci.org/OpenTreeOfLife/nexson.png)](http://travis-ci.org/OpenTreeOfLife/nexson)
 
 nexson
 ======
