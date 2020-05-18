@@ -3,11 +3,11 @@ from nexson.syntax import detect_nexson_version, get_empty_nexson
 from peyutil import UNICODE
 from nexson import validate_nexson
 from nexson.test.support.pathmap import get_test_path_mapper
-from peyutil.test.support.helper import (testing_write_json,
-                                         testing_read_json,
-                                         testing_through_json,
-                                         testing_dict_eq,
-                                         testing_conv_key_unicode_literal)
+from peyutil.test.support.helper import testing_write_json as twj
+from peyutil.test.support.helper import testing_read_json as trj
+from peyutil.test.support.helper import testing_through_json as ttj
+from peyutil.test.support.helper import testing_dict_eq as tde
+from peyutil.test.support.helper import testing_conv_key_unicode_literal as tckul
 import unittest
 import logging
 import os
@@ -39,7 +39,7 @@ class TestConvert(unittest.TestCase):
                 if len(annot.errors) > 0:
                     ofn = pathmap.nexson_source_path(frag + '.output')
                     ew_dict = annot.get_err_warn_summary_dict()
-                    testing_write_json(ew_dict, ofn)
+                    twj(ew_dict, ofn)
                     msg = "File failed to validate cleanly. See {o}".format(o=ofn)
                 self.assertEqual(len(annot.errors), 0, msg)
 
@@ -48,7 +48,7 @@ class TestConvert(unittest.TestCase):
         for fn in pathmap.all_files(os.path.join('nexson', 'invalid')):
             if fn.endswith('.input'):
                 frag = fn[:-len('.input')]
-                inp = testing_read_json(fn)
+                inp = trj(fn)
                 try:
                     aa = validate_nexson(inp)
                 except:
@@ -57,7 +57,7 @@ class TestConvert(unittest.TestCase):
                 if len(annot.errors) == 0:
                     ofn = pathmap.nexson_source_path(frag + '.output')
                     ew_dict = annot.get_err_warn_summary_dict()
-                    testing_write_json(ew_dict, ofn)
+                    twj(ew_dict, ofn)
                     msg = "Failed to reject file. See {o}".format(o=str(msg))
                     self.assertTrue(False, msg)
 
@@ -68,15 +68,15 @@ class TestConvert(unittest.TestCase):
                 frag = fn[:-len('.input')]
                 efn = frag + '.expected'
                 if os.path.exists(efn):
-                    inp = testing_read_json(fn)
+                    inp = trj(fn)
                     aa = validate_nexson(inp)
                     annot = aa[0]
                     ew_dict = annot.get_err_warn_summary_dict()
-                    ew_dict = testing_conv_key_unicode_literal(testing_through_json(ew_dict))
-                    exp = testing_conv_key_unicode_literal(testing_read_json(efn))
-                    if not testing_dict_eq(ew_dict, exp):
+                    ew_dict = tckul(ttj(ew_dict))
+                    exp = tckul(trj(efn))
+                    if not tde(ew_dict, exp):
                         ofn = frag + '.output'
-                        testing_write_json(ew_dict, ofn)
+                        twj(ew_dict, ofn)
                         msg = "Validation failed to produce expected outcome. Compare {o} and {e}".format(o=ofn, e=efn)
                     self.assertDictEqual(exp, ew_dict, msg)
                 else:
@@ -89,15 +89,15 @@ class TestConvert(unittest.TestCase):
                 frag = fn[:-len('.input')]
                 efn = frag + '.expected'
                 if os.path.exists(efn):
-                    inp = testing_read_json(fn)
+                    inp = trj(fn)
                     aa = validate_nexson(inp)
                     annot = aa[0]
                     ew_dict = annot.get_err_warn_summary_dict()
-                    ew_dict = testing_through_json(ew_dict)
-                    exp = testing_read_json(efn)
-                    if not testing_dict_eq(ew_dict, exp):
+                    ew_dict = ttj(ew_dict)
+                    exp = trj(efn)
+                    if not tde(ew_dict, exp):
                         ofn = frag + '.output'
-                        testing_write_json(ew_dict, ofn)
+                        twj(ew_dict, ofn)
                         msg = "Validation failed to produce expected outcome. Compare {o} and {e}".format(o=ofn, e=efn)
                     self.assertDictEqual(exp, ew_dict, msg)
                 else:

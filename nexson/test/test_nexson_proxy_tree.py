@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 from nexson import NexsonProxy
-from .support.pathmap import get_test_path_mapper
+from nexson.test.support.pathmap import get_test_path_mapper
 import unittest
 
 pathmap = get_test_path_mapper()

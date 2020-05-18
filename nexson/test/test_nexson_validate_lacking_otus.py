@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 from nexson import validate_nexson
-from peyutil.test.support.helper import testing_write_json, testing_read_json
-from .support.pathmap import get_test_path_mapper
+from peyutil.test.support.helper import testing_write_json as twj
+from peyutil.test.support.helper import testing_read_json as trj
+from nexson.test.support.pathmap import get_test_path_mapper
 import unittest
 import os
 
@@ -17,13 +18,13 @@ class TestConvert(unittest.TestCase):
         for fn in pathmap.all_files(os.path.join('nexson', 'lacking_otus')):
             if fn.endswith('.input'):
                 frag = fn[:-len('.input')]
-                inp = testing_read_json(fn)
+                inp = trj(fn)
                 aa = validate_nexson(inp)
                 annot = aa[0]
                 if len(annot.errors) == 0:
                     ofn = pathmap.nexson_source_path(frag + '.output')
                     ew_dict = annot.get_err_warn_summary_dict()
-                    testing_write_json(ew_dict, ofn)
+                    twj(ew_dict, ofn)
                     msg = "Failed to reject file. See {o}".format(o=str(msg))
                     self.assertTrue(False, msg)
 
