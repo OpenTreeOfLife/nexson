@@ -11,6 +11,12 @@ __all__ = ['syntax',
            'validation',
            'proxy']
 
+from .syntax import (detect_nexson_version,
+                     extract_otu_nexson,
+                     extract_tree_nexson,
+                     )
 from .validation import validate_nexson
 from .proxy import NexsonProxy
+
+
 
