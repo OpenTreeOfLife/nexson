@@ -42,5 +42,5 @@ The peyotl/test/data/nexson/phenoscape/nexml test file is from
 ****************
 
 
-[1]: http://blog.opentreeoflife.org/
+[1]: https://opentreeoflife.github.io
 [2]: https://raw.githubusercontent.com/OpenTreeOfLife/nexson/master/CONTRIBUTORS.txt
