@@ -6,19 +6,22 @@ from nexson.validation.logger import FilteringLogger, ValidationLogger
 from nexson.validation.warning_codes import NexsonWarningCodes
 from nexson.syntax import NexsonError
 
-def validate_nexson(obj, warning_codes_to_skip=None, retain_deprecated=True, **kwargs):
-    """Takes an `obj` that is a NexSON object.
+def validate_nexson(obj,
+                    warning_codes_to_skip=None,
+                    retain_deprecated=True,
+                    **kwargs):
+    """Takes a NexSON `obj`. Returns a `(validatation_log, adaptor)` pair.
+
     `warning_codes_to_skip` is None or an iterable collection of integers
         that correspond to facets of NexsonWarningCodes. Warnings associated
         with any code in the list will be suppressed.
     `retain_deprecated` if False, then `obj` may be modified to replace
         deprecated constructs with new syntax. If it is True, the `obj` will
         not be modified.
-    Returns the pair:
-        validatation_log, adaptor
-    `validatation_log` will be an instance of type nexson_validation.logger.DefaultRichLogger
+
+    `validatation_log` will be an instance of a `DefaultRichLogger` subclass.
         it will hold warning and error messages.
-    `adaptor` will be an instance of nexson_validation.nexson_adaptor.NexsonValidationAdaptor
+    `adaptor` will be an instance of `NexsonValidationAdaptor`.
         it holds a reference to `obj` and the bookkeepping data necessary to attach
         the log message to `obj` if
     """

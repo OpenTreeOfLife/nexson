@@ -21,6 +21,13 @@ class TestConvert(unittest.TestCase):
                 inp = trj(fn)
                 aa = validate_nexson(inp)
                 annot = aa[0]
+                # import json
+                # print(json.dumps(annot.prepare_annotation(), indent=2))
+                #for n, e in enumerate(annot.errors):
+                    # print(n, type(e))
+                    # for nv, v in enumerate(e):
+                    #     vt = v[0]
+                    #     print(nv, vt.as_dict(v))
                 if len(annot.errors) == 0:
                     ofn = pathmap.nexson_source_path(frag + '.output')
                     ew_dict = annot.get_err_warn_summary_dict()

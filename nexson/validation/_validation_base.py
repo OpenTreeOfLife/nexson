@@ -138,7 +138,7 @@ class LazyAddress(object):
         self._path, self._full_path = None, None
 
     def write_path_suffix_str(self, out):
-        p = self.path
+        p = str(self.path)
         out.write(' in ')
         out.write(p)
 

@@ -21,7 +21,7 @@ class DirectHBFValidationAdaptor(BadgerFishValidationAdaptor):
         BadgerFishValidationAdaptor.__init__(self, obj, logger, **kwargs)
 
 
-def create_validation_adaptor(obj, logger, **kwargs):
+def  create_validation_adaptor(obj, logger, **kwargs):
     try:
         nexson_version = detect_nexson_version(obj)
     except:

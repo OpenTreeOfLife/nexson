@@ -7,7 +7,7 @@
 class NexsonWarningCodes(object):
     """Enumeration of Warning/Error types. For internal use.
 
-    NexsonWarningCodes.facets maps int -> warning name.
+    `facets` is a tuple mapping int -> warning name.
     Each of these names will also be an attribute of NexsonWarningCodes.
     NexsonWarningCodes.numeric_codes_registered is (after some mild monkey-patching)
         a set of the integers registered.
@@ -49,10 +49,16 @@ class NexsonWarningCodes(object):
 
 
 # monkey-patching NexsonWarningCodes...
+_mpdoc = ['    Code name -> int mapping:']
 for _n, _f in enumerate(NexsonWarningCodes.facets):
     setattr(NexsonWarningCodes, _f, _n)
+    _mpdoc.append('`{}` = {}'.format(_f, _n))
     NexsonWarningCodes.numeric_codes_registered.append(_n)
 NexsonWarningCodes.numeric_codes_registered = set(NexsonWarningCodes.numeric_codes_registered)
+
+NexsonWarningCodes.__doc__ = '{}\n{}\n'.format(NexsonWarningCodes.__doc__,
+                                               '\n      - '.join(_mpdoc))
+del _mpdoc
 # End of NexsonWarningCodes enum
 
 ################################################################################

@@ -80,7 +80,7 @@ class TestConvert(unittest.TestCase):
                         msg = "Validation failed to produce expected outcome. Compare {o} and {e}".format(o=ofn, e=efn)
                     self.assertDictEqual(exp, ew_dict, msg)
                 else:
-                    _LOG.warn('Expected output file "{f}" not found'.format(f=efn))
+                    _LOG.warning('Expected output file "{f}" not found'.format(f=efn))
 
     def testOldExpectedWarnings(self):
         msg = ''
@@ -101,7 +101,7 @@ class TestConvert(unittest.TestCase):
                         msg = "Validation failed to produce expected outcome. Compare {o} and {e}".format(o=ofn, e=efn)
                     self.assertDictEqual(exp, ew_dict, msg)
                 else:
-                    _LOG.warn('Expected output file "{f}" not found'.format(f=efn))
+                    _LOG.warning('Expected output file "{f}" not found'.format(f=efn))
 
     def testCreated(self):
         b = get_empty_nexson()

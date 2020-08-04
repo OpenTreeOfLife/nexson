@@ -85,6 +85,12 @@ _msg_key_func = cmp_to_key(_msg_cmp)
 
 
 class DefaultRichLogger(object):
+    """A container for warnings and errors encountered during NexSON validation.
+
+    `store_messages=False` argument to __init__ is *deprecated*. That argument
+    is retained for backwards compatibility, but ignored. Messages are store
+    regardless of the value of this argument.
+    """
     def __init__(self, store_messages=False):
         self.out = sys.stderr
         self.store_messages_as_obj = store_messages
@@ -97,21 +103,39 @@ class DefaultRichLogger(object):
         self.codes_to_skip = set()
 
     def has_error(self):
+        """Returns `True` if no errors were stored."""
         return bool(self._err_by_type)
 
     @property
     def errors(self):
+        """Returns the values of an internal errors by value dict.
+
+        Returns an interable. Each element will be a
+        set of tuples. The first element in each tuple will be
+        a `MessageTupleAdaptor` instance.
+        """
         return self._err_by_type.values()
 
     @property
     def warnings(self):
+        """Returns the values of an internal warnings by value dict.
+
+        Returns an interable. Each element will be a
+        set of tuples. The first element in each tuple will be
+        a `MessageTupleAdaptor` instance.
+        """
         return self._warn_by_type.values()
 
     def is_logging_type(self, t):
+        """Base class always returns `True`, as all messages are logged."""
         # pylint: disable=W0613,R0201
         return True
 
     def register_new_messages(self, err_tup, severity):
+        """Stores a typed error tuple by type and python ID of target.
+
+        The `err_tup` should be a tuple of the type described in `MessageTupleAdaptor`.
+        The `severity` should be either `SeverityCodes.WARNING` or `SeverityCodes.ERROR`."""
         c = err_tup[0].code
         pyid = err_tup[1]
         if severity == SeverityCodes.WARNING:
@@ -126,6 +150,15 @@ class DefaultRichLogger(object):
             x.add(err_tup)
 
     def get_err_warn_summary_dict(self, sort=True):
+        """Returns a `{'warnings': {}, 'errors': {}}` view of all logged messages.
+
+        The values in the warnings and errors dict will have a facet of
+        `NexsonWarningCodes` as keys mapped to a list of the a slimmed version of the dict
+        returned by calling `MessageTupleAdaptor.as_dict` on each logged warning or error.
+        A key will be absent if no warning or error of that type was encountered.
+        The "slimmed version" of the dict simply omits the '@code' value, because that will
+        be the same for every error of each type (and the same as the key in the containing dict).
+        """
         w = {}
         for wm in self._warn_by_type.values():
             d = _err_warn_summary(wm)
@@ -144,6 +177,10 @@ class DefaultRichLogger(object):
         return {'warnings': w, 'errors': e}
 
     def create_nexson_message_list(self, sort=True):
+        """Returns a list of dict-forms of the log tuples described in `MessageTupleAdaptor`.
+
+        The list elements are organized by logged event type.
+        """
         em_list = []
         for key, em in self._err_by_type.items():
             d = _create_message_list(key, em, 'ERROR')
@@ -168,6 +205,23 @@ class DefaultRichLogger(object):
                            description=None,
                            annotation_label=None  # @TEMP arg for backward compat.
                            ):
+        """Wraps the set of logged warnings/errors as a dict, addable to a NexSON object.
+
+        For example:
+
+        .. highlight:: python
+        .. code-block:: python
+
+            obj = json.load(inp)
+            v_log, adaptor = validate_nexson(obj)
+            annotation = v_log.prepare_annotation(author_name=SCRIPT_NAME,
+                                                  invocation=sys.argv[1:],
+                                                  )
+            adaptor.add_or_replace_annotation(obj,
+                                              annotation['annotationEvent'],
+                                              annotation['agent'],
+                                              add_agent_only=args.add_agent_only)
+        """
         if description is None:
             description = "validator of NexSON constraints as well as constraints " \
                           "that would allow a study to be imported into the Open Tree " \
@@ -219,11 +273,22 @@ class DefaultRichLogger(object):
 
 
 class ValidationLogger(DefaultRichLogger):
+    """Subclass of `DefaultRichLogger`. Retained for backward compatibility.
+
+    No methods are overridden, simply uses base class behavior.
+    """
+
     def __init__(self, store_messages=False):
         DefaultRichLogger.__init__(self, store_messages=store_messages)
 
 
 class FilteringLogger(ValidationLogger):
+    """Subclass of `DefaultRichLogger`.
+
+    __init__ method allows client to supply `codes_to_register` or
+    `codes_to_skip` ei
+    """
+
     def __init__(self, codes_to_register=None, codes_to_skip=None, store_messages=False):
         ValidationLogger.__init__(self, store_messages=store_messages)
         self.codes_to_skip = set()

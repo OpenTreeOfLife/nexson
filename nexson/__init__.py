@@ -15,8 +15,16 @@ from .syntax import (detect_nexson_version,
                      extract_otu_nexson,
                      extract_tree_nexson,
                      )
-from .validation import validate_nexson
+from .validation import (ot_validate,
+                         validate_nexson,
+                         )
 from .proxy import NexsonProxy
+
+__all__ = [  # From syntax
+           'detect_nexson_version',
+           'extract_otu_nexson',
+           'extract_tree_nexson',
+           ]
 
 
 

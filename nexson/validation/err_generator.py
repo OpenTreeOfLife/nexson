@@ -22,12 +22,14 @@ import json
 # monkey patching of NexsonWarningCodes causes lots of warnings
 # pylint: disable=E1101
 import logging
-
+from peyutil import get_utf_8_string_io_writer
 _LOG = logging.getLogger(__name__)
 
 
 class MessageTupleAdaptor(object):
-    """This base class provides the basic functionality of keeping
+    """Base class for the Warning/Error types generated during validation.
+
+    This base class provides the basic functionality of keeping
     track of the "address" of the element that triggered the warning,
     the severity code, and methods for writing to free text stream or JSON.
     """
@@ -39,11 +41,9 @@ class MessageTupleAdaptor(object):
         self.code = None
 
     def __unicode__(self, err_tuple, prefix=''):
-        b = StringIO()
-        ci = codecs.lookup('utf8')
-        s = codecs.StreamReaderWriter(b, ci.streamreader, ci.streamwriter)
-        self.write(err_tuple, s, prefix)
-        return s.getvalue()
+        strio, wrapper = get_utf_8_string_io_writer()
+        self.write(err_tuple, wrapper, prefix)
+        return strio.getvalue()
 
     def getvalue(self, err_tuple, prefix=''):
         return self.__unicode__(err_tuple, prefix=prefix)
@@ -123,7 +123,7 @@ class MissingMandatoryKeyWarningType(_StrListDataWarningType):
     def __init__(self):
         # noinspection PyUnresolvedReferences
         self.code = NexsonWarningCodes.MISSING_MANDATORY_KEY
-        self.format = '{p}Missing required key(s): "{d}"'
+        self.format = '{p}MMultipleTipsToSameOttIdWarningissing required key(s): "{d}"'
 
 
 # noinspection PyMissingConstructor

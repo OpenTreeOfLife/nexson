@@ -13,8 +13,7 @@ VERSION = '0.0.4a'
 
 
 class SeverityCodes(object):
-    """An enum of Warning/Error severity
-    """
+    """An enum of Warning/Error severity."""
     ERROR, WARNING = range(2)
     facets = ['ERROR', 'WARNING']
     numeric_codes_registered = set(range(len(facets)))
