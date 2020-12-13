@@ -2,6 +2,13 @@
 :mod:`nexson.validation`: Validation of NexSON documents
 ********************************************************
 
+The validation of a NexSON object is a bit more cumbersome than
+it should be. In part, this is because the system to separate
+the accumulation of warnings/errors in one container, and also
+allowing for attaching messages about these errors to the NexSON
+object. Thus, the `validate_nexson` function returns a pair of
+objects: a log and an adaptor that can inject the logged messages
+into the correct spot in the NexSON.
 
 .. highlight:: python
 .. code-block:: python
