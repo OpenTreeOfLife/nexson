@@ -1,3 +1,4 @@
 setuptools
 wheel
-peyutil>=0.0.1
+peyutil>=0.0.3
+
