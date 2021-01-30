@@ -4,7 +4,7 @@
 
 
 # An enum of WARNING_CODES
-class NexsonWarningCodes(object):
+class NexsonWarningCodes:
     """Enumeration of Warning/Error types. For internal use.
 
     `facets` is a tuple mapping int -> warning name.
