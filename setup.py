@@ -67,7 +67,6 @@ setup(
     description='Library for dealing with phylogenetic trees in the NexSON format',
     long_description=(open('README.rst').read()),
     url='https://github.com/OpenTreeOfLife/nexson',
-    license='BSD',
     author='Emily Jane B. McTavish and Mark T. Holder',
     py_modules=['nexson'],
     install_requires=['setuptools', # sync with requirements.txt
